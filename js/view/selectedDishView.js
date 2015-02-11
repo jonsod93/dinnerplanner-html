@@ -8,7 +8,7 @@ var SelectedDishView = function (container, model) {
 	var total = model.getPrice(1);
 	var page ='';
 
-
+    
 	this.getIngredients = function ()
 	{
 	page += '<div class="row">';
