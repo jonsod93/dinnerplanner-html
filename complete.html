@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+  <style>
+  </style>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dinner planner</title> 
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+
+  </head>
+  <body>
+
+	<div class="container" style=width:100%;>
+
+		<div id="exampleView">
+			<div class="row" style="background:lightgray; opacity:.8;">
+	 			<div class="col-md-12" id="Header"><h1>Homelette    <small>From the best chefs in the world directly into your kitchen</small></h1></div>
+				</div>
+
+
+
+		<div class="row" id="Full2">
+
+			<div class="row" id="page1" style="background:url('images/dinnerparty.jpg') no-repeat; background-size:cover;">
+  				<div class="col-md-12" style="border-top:solid;">
+  					<div class="row">
+  						<div class="col-md-4" style="background:rgba(211,211,211,.8); margin-top:15%; margin-left:4%; margin-bottom:5%;">
+	  						<h2 style="margin-left:3%;">A Home Dinner Service</h2>
+	  						<h4 style="margin-left:3%;">Lorem Ipsum och så vidare massa text som visar på att vi kan skriva</br>
+	  						random saker som tar upp mycket plats på skärmen.</br></br>Start quickly</h4>
+	  						<button id="Start" class="btn btn-default" style="margin-left:3%; margin-bottom:1%; border:solid;
+	  						border-width:2px; background:rgba(66,139,202,1);">
+	  						<h3>Create new dinner</h3></button>
+  						</div>
+  					</div>
+  				</div>		
+			</div>
+
+  			<div class="col-md-2" style="border-style:solid; background:#A6CAFC;" id="SideBar"><h4>My Dinner</h4>
+  				<div>Guests: <button class="btn btn-default disabled" type="submit"><span id="numberOfGuests"></span></button>
+
+					<div class="btn-group-vertical">
+					<button id="plusGuest" class="btn btn-xs"><span class="glyphicon glyphicon-chevron-up"></span></button>
+         		 	<button id="minusGuest" class="btn btn-xs"><span class="glyphicon glyphicon-chevron-down"></span></button>
+					</div>
+
+				</div>
+				
+				<div class="row" style="margin-top:5%; margin-bottom:5%;">
+				<div class="col-md-12" style="background:lightgray; border-style:solid;"><div class="col-md-9">Dish Name</div>
+				<div class="col-md-3">Cost</div></div>
+				</div>
+				<div class="row">
+				<div class="col-md-12" style="background:#B9EAFB;">
+
+				<div class="col-md-11" style="margin-left:-25px;"><span id="dishName"></span></div>
+				<div class="col-md-1"><span id="dishPrice"></span></div>
+
+				</div>
+				
+				</div>
+				
+				
+				SEK <span id="totalPrice" style="float:right; margin-right:23px;"></span>
+				
+				<div class="row" style="margin-top:10%; margin-bottom:250%;">
+				<div class="col-md-10 col-md-offset-1">
+					<button id='Confirm' type='submit' style='background:#428bca;'>Confirm dinner</button></div>
+				</div>
+				
+
+			</div>
+  			
+  			<div class="col-md-10" id="dishSelectView">
+
+  				<div class="row" id="AllDishes">
+  					<div class="col-md-12" style="background:#428bca; border-style:solid;" id="DishType"><h4>SELECT DISH</h4>
+
+  					<div class="row" style="margin-top:2%; margin-bottom:2%;" id="PresentedDishes">
+
+  						<div class="col-md-4">
+	    						<div class="input-group">
+	      							<input type="text" class="form-control" placeholder="Enter key words">
+	      							<span class="input-group-btn">
+	        							<button class="btn btn-default" type="button">Search</button>
+	      							</span>
+	   		 					</div>
+							</div>
+
+
+  						
+
+  						<div class="col-md-3">
+							<select class="form-control" multiple="multiple">
+							  <option class="dropdown" id='starter'>Starter</option>
+							  <option class="dropdown" id='main'>Main</option>
+							  <option class="dropdown" id='dessert'>Dessert</option>
+							</select>
+						</div>
+					</div>
+
+
+  					</div>
+  					<div class="col-md-12">
+
+  						<span id="Dishes"></span>
+
+  					</div>
+  					</div>
+				</div>
+			
+
+			<div class="col-md-10" id="specificDish" style="border-top:solid;">
+
+  				<div class="row">
+
+  					<div class="col-md-12" id="selectedDishView">
+
+  					<span id="Dish"></span>
+
+  					</div>
+  				</div>
+			</div>
+			<div id="menuView">
+			<div id="secondHeader" class="col-md-12" style="border-bottom:solid; border-top:solid; background:#A6CAFC;">
+  				<div class="row">
+  					<div class="col-md-9">
+  						<h2>My Dinner: <span id="numberOfGuestsMenu"></span> people</h2>
+  					</div>
+			
+
+					<div class="col-md-3">
+						<button class='btn btn-default' type='submit' style='background:#428bca; border:solid;
+  					border-width:2px; margin-bottom:5px; margin-top:15px;'>
+						Go back and edit dinner
+						</button>
+					</div>
+				</div>
+
+			</div>
+			<div class="row" id="presentedMenu">
+ 
+  				<div class="col-md-12" id="menuView" style="margin-top:5%;">
+  					<span id="ChosenMenu"></span>
+  				</div>
+
+  			</div>
+  			<div class="row" id="finalMenu" style="display:none;">
+  				<div class="col-md-12" id="finalView" style="margin-top:5%;">
+  					<span id="ChosenMenu"></span>
+  				</div>
+  			</div>
+  		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+
+		
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Bootstrap JavaScript, needed if you want for instance tabs, models, popovers etc. -->
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+	<!-- The application JavaScript code -->
+	<script src="js/app.js"></script>
+	<script src="js/model/dinnerModel.js"></script>
+	<script src="js/view/exampleView.js"></script>
+	<script src="js/view/dishSelectView.js"></script>
+	<script src="js/view/selectedDishView.js"></script>
+	<script src="js/view/menuView.js"></script>
+	<script src="js/view/finalView.js"></script>
+	<script src="js/view/exampleViewController.js"></script>
+	<script src="js/view/dishSelectViewController.js"></script>
+	<script src="js/view/SelectedViewController.js"></script>
+  </body>
+</html>

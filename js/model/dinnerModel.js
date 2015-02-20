@@ -3,12 +3,44 @@ var DinnerModel = function() {
  
 	//TODO Lab 2 implement the data structure that will hold number of guest
 	// and selected dinner options for dinner menu
-	var guests =4;
+	var guests =1;
 	var menu = new Object();
+	var observers = [];
+	var currentDish = 1;
+	var currentType = 'starter';
+
+	this.setCurrentType = function(type){
+		currentType = type;
+		this.notifyObservers();
+	}
+
+	this.getCurrentType = function(){
+		return currentType;
+	}
+
+	this.setCurrentDish = function (id){
+		currentDish = Number(id);
+		this.notifyObservers();
+	}
+
+	this.getCurrentDish = function (){
+		return Number(currentDish);
+	}
+
+	this.addObserver = function(observer){
+		observers.push(observer);
+	}
+
+	this.notifyObservers = function(){
+		for (n=0;n<observers.length;n++){
+			observers[n].updateView();
+		}
+	}
 
 	this.setNumberOfGuests = function(num) {
 		//TODO Lab 2
 		guests = num;
+		this.notifyObservers();
 	}
 
 	// should return 
@@ -344,7 +376,7 @@ var DinnerModel = function() {
 			'price':4
 			}]
 		},{
-		'id':102,
+		'id':103,
 		'name':'MD 4',
 		'type':'main',
 		'image':'meatballs.jpg',

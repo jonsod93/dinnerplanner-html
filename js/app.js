@@ -8,5 +8,6 @@ $(function() {
 	var selectedDishView = new SelectedDishView($("#selectedDishView"),model);
 	var menuView = new MenuView($("#menuView"),model);
 	var finalView = new FinalView($("#finalView"),model);
+	var exampleViewController = new ExampleViewController(exampleView,model);
 
 });
