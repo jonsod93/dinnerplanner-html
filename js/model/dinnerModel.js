@@ -8,6 +8,8 @@ var DinnerModel = function() {
 	var observers = [];
 	var currentDish = 1;
 	var currentType = 'starter';
+	this.searched = "";
+
 
 	this.setCurrentType = function(type){
 		currentType = type;
@@ -131,6 +133,7 @@ var DinnerModel = function() {
 	if(menu[type] === id) {
 		delete menu[type];
 		}
+		this.notifyObservers();
 	}
 	
 

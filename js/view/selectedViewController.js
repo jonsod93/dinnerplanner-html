@@ -1,6 +1,7 @@
 //ExampleViewController Object constructor
 var SelectedViewController = function(view, model ) {
 
+this.refresh = function(){
  view.backsies.click(function(){
  	
     $("#specificDish").hide();
@@ -18,6 +19,6 @@ view.confirmed.click(function(){
     $("#AllDishes").show();
 
 });
-
+}
 
 }

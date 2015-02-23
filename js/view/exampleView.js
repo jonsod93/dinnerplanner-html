@@ -1,7 +1,13 @@
 //ExampleView Object constructor
 var ExampleView = function (container, model) {
+	$("#SideBar").hide();
+    $("#AllDishes").hide();
+    $("#specificDish").hide();
+    $("#secondHeader").hide();
+    $("#presentedMenu").hide();
+    $("#finalMenu").hide();
 	
-
+	//$("#page1").hide();
 	// Get all the relevant elements of the view (ones that show data
   	// and/or ones that responed to interaction)
 	this.numberOfGuests = container.find("#numberOfGuests");
@@ -30,7 +36,7 @@ var ExampleView = function (container, model) {
 		if('main' in FullMenu){
 			var mainid = FullMenu.main;
 			var main = model.getDish(mainid);
-			things += '<button class="removeMain btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span></button> '+main.name.substr(0, 30)+'<br />';
+			things += '<button id= "removeMain" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span></button> '+main.name.substr(0, 30)+'<br />';
 		}
 		if('dessert' in FullMenu){
 			var dessertid = FullMenu.dessert;
@@ -75,6 +81,16 @@ var ExampleView = function (container, model) {
 		this.numberOfGuests.html(model.getNumberOfGuests);
 		this.totalPrice.html(model.getTotalMenuPrice());
 
+		this.tryShit = function(){ //since the controller doesn't exists yet the first time the view is runned
+			try{
+				exampleViewController.refresh();
+			}
+			catch(err){
+
+			}
+		}
+		this.tryShit();
+		
 	}
 
 	this.updateView();

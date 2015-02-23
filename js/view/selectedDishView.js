@@ -26,11 +26,11 @@ var SelectedDishView = function (container, model) {
 		page += '<div class="row">';
 		page += "<div class='col-md-6'>";
 		page += "<h2>"+dish.name+'</h2></br>';
-		page += "<img src=images/"+dish.image+' height="300px"><br/>';
+		page += "<img src=images/"+dish.image+' height="250px"><br/>';
 		page += "<p style='margin-top:5%;''>"+dish.description+'</p>';
 
 		page += "<button class='backsies' type='submit' style='background:#428bca;'>Back to select dish</button>"
-		page += "<h2>Preperations</h2></div>";
+		page += "</div>";
 		page += "<div class='col-md-6' style='border-style:solid; background:#428bca;'>";
 		page += "<h3>Ingredients for "+guests+" people<h3></br>";
 
@@ -46,17 +46,25 @@ var SelectedDishView = function (container, model) {
 				page +="Confirm Dish</button>Total "+total+"</div></div>";
 				return page;
 		}
-		this.dishPrice.html(model.getPrice(1));
-		this.dishName.html(model.getDishName(1));
-		this.numberOfGuests.html(model.getNumberOfGuests);
-		this.totalPrice.html(model.getTotalMenuPrice());
+		//this.dishPrice.html(model.getPrice(1));
+		//this.dishName.html(model.getDishName(1));
+		//this.numberOfGuests.html(model.getNumberOfGuests);
+		//this.totalPrice.html(model.getTotalMenuPrice());
 		Dish.html(this.getIngredients);
 		this.backsies = container.find(".backsies");
 		this.confirmed = container.find(".confirmed");
 
-		var selectedViewController = new SelectedViewController(this,model);
+		this.tryShit = function(){ //since the controller doesn't exists yet the first time the view is runned
+			try{
+				selectedViewController.refresh();
+			}
+			catch(err){
+
+			}
+		}
+		this.tryShit();
+		
  	}
 	this.updateView();
  	model.addObserver(this);
-
 }

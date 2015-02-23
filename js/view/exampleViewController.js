@@ -15,7 +15,8 @@ var ExampleViewController = function(view, model ) {
     $("#secondHeader").hide();
     $("#presentedMenu").hide();
     $("#finalMenu").hide();
-    $("#SideBar #AllDishes").show();
+    $("#SideBar").show();
+    $("#AllDishes").show();
 
 });
 
@@ -28,16 +29,27 @@ view.Confirm.click(function(){
     $("#SideBar").hide();
     $("#AllDishes").hide();
 });
-view.removeMain.click(function(){
-    var FullMenu = model.getFullMenu();
-    var dishid = FullMenu.main;
-    $("#page1").show();
-    $("#specificDish").hide();
-    $("#secondHeader").show();
-    $("#presentedMenu").show();
-    $("#finalMenu").hide();
-    $("#SideBar").hide();
-    $("#AllDishes").hide();
-    model.removeDishFromMenu(dishid);
-});
+
+this.refresh = function(){
+    view.removeStarter.click(function(){
+        
+        var dish = model.getSelectedDish('starter');
+        var dishid = dish.id;
+        model.removeDishFromMenu(dishid);
+    });
+    view.removeMain.click(function(){
+        
+        var dish = model.getSelectedDish('main');
+        var dishid = dish.id;
+        model.removeDishFromMenu(dishid);
+    });
+    view.removeDessert.click(function(){
+        
+        var dish = model.getSelectedDish('dessert');
+        var dishid = dish.id;
+        model.removeDishFromMenu(dishid);
+    });
+}
+
+this.refresh();
 }

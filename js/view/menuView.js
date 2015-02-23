@@ -34,19 +34,31 @@ var MenuView = function (container, model) {
 			for (l=0;l<menuList.length;l++){
 					var dish = menuList[l];
 					var price = model.getPrice(dish.id);
-					stuff += "<div class='col-md-2' style='border-bottom:solid;'><center><img src=images/"+dish.image+' width=100%"><br/><h4>';
+					stuff += "<div class='col-md-2'><center><img src=images/"+dish.image+' width=150px height=150px"><br/><h4>';
 			  		stuff += dish.name;
 			  		stuff += "</br>"+price+" SEK</h4>";
 			  		stuff += '</center></div>';
 		  	}
 			stuff += "<div class='col-md-12'><center><h3>Total: "+total+" SEK</h3>";
-			stuff+= "<button class='btn btn-default' style='background:#428bca;'>Print Full Recipe</button></center></div>";
+			stuff+= "<button id='printing' class='btn btn-default' style='background:#428bca;'>Print Full Recipe</button></center></div>";
 		  	return stuff;
 		}
 		People.html(model.getNumberOfGuests());
 		ChosenMenu.html(this.getMenu);
-	}
+		this.printing = container.find("#printing");
 
+
+		this.tryShit = function(){ //since the controller doesn't exists yet the first time the view is runned
+			try{
+				menuViewController.refresh();
+			}
+			catch(err){
+
+			}
+		}
+		this.tryShit();
+	}
+	this.back = container.find("#back");
 	this.updateView();
  	model.addObserver(this);
  

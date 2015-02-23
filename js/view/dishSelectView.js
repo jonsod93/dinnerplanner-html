@@ -6,7 +6,7 @@ var DishSelectView = function (container, model) {
 
 	this.updateView = function(){
 		var AllDishes ='';
-		var AllType = model.getAllDishes(model.getCurrentType());
+		var AllType = model.getAllDishes(model.getCurrentType(),model.searched);
 		
 		this.getDishes = function ()
 		{
@@ -18,7 +18,7 @@ var DishSelectView = function (container, model) {
 		  		AllDishes += "<center><img class='buttons' id='"+dish.id+"'src=images/"+dish.image+' height="100px" width="100px"><br/><h4>';
 		  		AllDishes += dish.name;
 		  		AllDishes += "<h4>";
-		  		AllDishes += "<p style='font-size:14px;'>"+dish.description+'</p></div></center>';
+		  		AllDishes += "<p style='font-size:14px;'>"+dish.description.substr(0,89)+'...</p></div></center>';
 		  	}
 		  	AllDishes += "</div>"
 		return AllDishes
@@ -28,7 +28,18 @@ var DishSelectView = function (container, model) {
 		//this.choice = container.find(".form-control");
 		this.buttons = container.find(".buttons");
 		this.dropdown = container.find(".dropdown");
-		var dishSelectViewController = new DishSelectViewController(this,model);
+		this.search = container.find("#searchbutton");
+
+		this.tryShit = function(){ //since the controller doesn't exists yet the first time the view is runned
+			try{
+				dishSelectViewController.refresh();
+			}
+			catch(err){
+
+			}
+		}
+		this.tryShit();
+		
 	}
 
 	this.updateView();
