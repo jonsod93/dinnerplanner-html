@@ -11,23 +11,18 @@ var ExampleViewController = function(view, model ) {
 
  view.Start.click(function(){
     $("#page1").hide();
-    $("#specificDish").hide();
-    $("#secondHeader").hide();
-    $("#presentedMenu").hide();
-    $("#finalMenu").hide();
     $("#SideBar").show();
     $("#AllDishes").show();
 
 });
 
 view.Confirm.click(function(){
-    $("#page1").hide();
     $("#specificDish").hide();
     $("#secondHeader").show();
     $("#presentedMenu").show();
-    $("#finalMenu").hide();
     $("#SideBar").hide();
     $("#AllDishes").hide();
+    $("#finalMenu").hide();
 });
 
 this.refresh = function(){

@@ -1,5 +1,5 @@
 //ExampleView Object constructor
-var DishSelectView = function (container, model) {
+var DishSelectView = function (container, model) { //The view
 	
 
 	var Dishes = container.find("#Dishes");

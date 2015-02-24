@@ -1,19 +1,13 @@
 //ExampleView Object constructor
-var MenuView = function (container, model) {
-	
-//	model.addDishToMenu(1);
-//	model.addDishToMenu(100);
-//	model.addDishToMenu(200);
+var MenuView = function (container, model) { //The view for presenting the menu
 
 		var People = container.find("#numberOfGuestsMenu")
 		var ChosenMenu = container.find("#ChosenMenu");
 
-	this.updateView = function(){	
-		var total = model.getTotalMenuPrice();
+	this.updateView = function(){ //The function called to update everything
+		var total = model.getTotalMenuPrice(); 
 
-
-		this.getMenu = function(){
-
+		this.getMenu = function(){ //Gets the menu that is currently selected
 			
 			var stuff = '';
 			var menu = model.getFullMenu();
@@ -31,7 +25,7 @@ var MenuView = function (container, model) {
 
 			stuff += "<div class='col-md-3'></div>"
 
-			for (l=0;l<menuList.length;l++){
+			for (l=0;l<menuList.length;l++){ //Goes through the menuList to get all the dishes and present them
 					var dish = menuList[l];
 					var price = model.getPrice(dish.id);
 					stuff += "<div class='col-md-2'><center><img src=images/"+dish.image+' width=150px height=150px"><br/><h4>';
@@ -41,7 +35,7 @@ var MenuView = function (container, model) {
 		  	}
 			stuff += "<div class='col-md-12'><center><h3>Total: "+total+" SEK</h3>";
 			stuff+= "<button id='printing' class='btn btn-default' style='background:#428bca;'>Print Full Recipe</button></center></div>";
-		  	return stuff;
+		  	return stuff; //Returns the string "stuff" that contains the html code
 		}
 		People.html(model.getNumberOfGuests());
 		ChosenMenu.html(this.getMenu);

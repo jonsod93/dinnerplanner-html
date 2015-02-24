@@ -12,9 +12,6 @@ window.selectedViewController = new SelectedViewController(selectedDishView,mode
 var menuView = new MenuView($("#menuView"),model);
 window.menuViewController = new MenuViewController(menuView,model);
 
-
 var finalView = new FinalView($("#finalView"),model);
-
-
 
 }

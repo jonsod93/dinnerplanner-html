@@ -1,5 +1,5 @@
 //ExampleView Object constructor
-var ExampleView = function (container, model) {
+var ExampleView = function (container, model) { //This view is for the first and second pages
 	$("#SideBar").hide();
     $("#AllDishes").hide();
     $("#specificDish").hide();

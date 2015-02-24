@@ -3,12 +3,13 @@ var DinnerModel = function() {
  
 	//TODO Lab 2 implement the data structure that will hold number of guest
 	// and selected dinner options for dinner menu
-	var guests =1;
-	var menu = new Object();
-	var observers = [];
-	var currentDish = 1;
-	var currentType = 'starter';
-	this.searched = "";
+
+	var guests =1; 
+	var menu = new Object(); //Our menu object where we store what type it has
+	var observers = []; //The array of observers (views)
+	var currentDish = 1; //The current dish showed
+	var currentType = 'starter'; //The current type of dishes showed
+	this.searched = ""; //The searched word
 
 
 	this.setCurrentType = function(type){
@@ -33,26 +34,23 @@ var DinnerModel = function() {
 		observers.push(observer);
 	}
 
-	this.notifyObservers = function(){
+	this.notifyObservers = function(){ //Goes through all views and run the update function
 		for (n=0;n<observers.length;n++){
 			observers[n].updateView();
 		}
 	}
 
 	this.setNumberOfGuests = function(num) {
-		//TODO Lab 2
 		guests = num;
 		this.notifyObservers();
 	}
 
-	// should return 
 	this.getNumberOfGuests = function() {
-		//TODO Lab 2
 		return guests;
 	}
 
 	//Returns the dish that is on the menu for selected type 
-	this.getOneDish = function(id) {
+	this.getOneDish = function(id) { //Returns the total price for 1 dish for 1 person
 		var total = 0;
 		for (i=0;i<dishes.length;i++)
 		{
@@ -76,10 +74,8 @@ var DinnerModel = function() {
 			return dishPrice*guests;
 	}
 
-	//Returns all the dishes on the menu.
 	this.getFullMenu = function() {
 		return menu;
-		//TODO Lab 2
 	}
 
 	//Returns all ingredients for all the dishes on the menu.

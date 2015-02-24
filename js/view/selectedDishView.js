@@ -46,10 +46,7 @@ var SelectedDishView = function (container, model) {
 				page +="Confirm Dish</button>Total "+total+"</div></div>";
 				return page;
 		}
-		//this.dishPrice.html(model.getPrice(1));
-		//this.dishName.html(model.getDishName(1));
-		//this.numberOfGuests.html(model.getNumberOfGuests);
-		//this.totalPrice.html(model.getTotalMenuPrice());
+
 		Dish.html(this.getIngredients);
 		this.backsies = container.find(".backsies");
 		this.confirmed = container.find(".confirmed");

@@ -4,28 +4,21 @@ var DishSelectViewController = function(view, model ) {
 this.refresh = function (){
 
 	 view.buttons.click(function(){
-	 	
-	    $("#page1").hide();
 	    $("#specificDish").show();
 	    $("#SideBar").show();
-	    $("#secondHeader").hide();
-	    $("#presentedMenu").hide();
-	    $("#finalMenu").hide();
 	    $("#AllDishes").hide();
 	    model.setCurrentDish(this.getAttribute("id"));
 
 	});
 }
- view.dropdown.click(function(){
+ view.dropdown.click(function(){ //Sets the new type of dishes showed
     model.setCurrentType(this.getAttribute("id"));
 });
-view.search.click(function(){
+view.search.click(function(){ //Sets the searched word as the value in the serachbar
 	model.searched = $("#search").val();
 	model.notifyObservers();
 	
 });
-
-
 this.refresh();
 
 }
