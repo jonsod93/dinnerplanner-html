@@ -3,10 +3,11 @@ var DishSelectView = function (container, model) { //The view
 	
 
 	var Dishes = container.find("#Dishes");
-
+	
 	this.updateView = function(){
+
 		var AllDishes ='';
-		var AllType = model.getAllDishes(model.getCurrentType(),model.searched);
+		var AllType = model.getSearched();
 		
 		this.getDishes = function ()
 		{
@@ -15,10 +16,10 @@ var DishSelectView = function (container, model) { //The view
 			{
 				var dish = AllType[i];
 				AllDishes += "<div class='col-md-2'>";
-		  		AllDishes += "<center><img class='buttons' id='"+dish.id+"'src=images/"+dish.image+' height="100px" width="100px"><br/><h4>';
-		  		AllDishes += dish.name;
+		  		AllDishes += "<center><img class='buttons' id='"+dish.RecipeID+"'src="+dish.ImageURL+' height="100px" width="100px"><br/><h4>';
+		  		AllDishes += dish.Title.substr(0,10)+'...';
 		  		AllDishes += "<h4>";
-		  		AllDishes += "<p style='font-size:14px;'>"+dish.description.substr(0,89)+'...</p></div></center>';
+		  		AllDishes += '</div></center>';
 		  	}
 		  	AllDishes += "</div>"
 		return AllDishes

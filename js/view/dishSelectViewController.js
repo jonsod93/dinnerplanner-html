@@ -8,6 +8,7 @@ this.refresh = function (){
 	    $("#SideBar").show();
 	    $("#AllDishes").hide();
 	    model.setCurrentDish(this.getAttribute("id"));
+	    model.getRecipe(this.getAttribute("id"));
 
 	});
 }
@@ -15,8 +16,8 @@ this.refresh = function (){
     model.setCurrentType(this.getAttribute("id"));
 });
 view.search.click(function(){ //Sets the searched word as the value in the serachbar
-	model.searched = $("#search").val();
-	model.notifyObservers();
+	$("#preSearch").hide();
+	model.getAllDishes($("#search").val());
 	
 });
 this.refresh();

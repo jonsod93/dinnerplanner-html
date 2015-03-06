@@ -26,23 +26,11 @@ view.Confirm.click(function(){
 });
 
 this.refresh = function(){
-    view.removeStarter.click(function(){
+    view.remove.click(function(){
         
-        var dish = model.getSelectedDish('starter');
-        var dishid = dish.id;
-        model.removeDishFromMenu(dishid);
-    });
-    view.removeMain.click(function(){
-        
-        var dish = model.getSelectedDish('main');
-        var dishid = dish.id;
-        model.removeDishFromMenu(dishid);
-    });
-    view.removeDessert.click(function(){
-        
-        var dish = model.getSelectedDish('dessert');
-        var dishid = dish.id;
-        model.removeDishFromMenu(dishid);
+        //var dish = model.getSelectedDish('starter');
+        //var dishid = dish.id;
+        model.removeDishFromMenu(this.getAttribute("id"));
     });
 }
 

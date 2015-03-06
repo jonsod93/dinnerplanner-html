@@ -5,31 +5,25 @@ var MenuView = function (container, model) { //The view for presenting the menu
 		var ChosenMenu = container.find("#ChosenMenu");
 
 	this.updateView = function(){ //The function called to update everything
-		var total = model.getTotalMenuPrice(); 
-
+		//var total = model.getTotalMenuPrice(); 
+		var total = 0;
 		this.getMenu = function(){ //Gets the menu that is currently selected
-			
+			var guests = model.getNumberOfGuests;
 			var stuff = '';
 			var menu = model.getFullMenu();
-			var menuList = [];
-
-			if('starter' in menu){
-				menuList.push(model.getSelectedDish('starter'));
-			}
-			if('main' in menu){
-				menuList.push(model.getSelectedDish('main'));
-			}
-			if('dessert' in menu){
-				menuList.push(model.getSelectedDish('dessert'));
-			}
+			var menuList = model.getFullMenu();
+			//var menuList = [];
 
 			stuff += "<div class='col-md-3'></div>"
 
 			for (l=0;l<menuList.length;l++){ //Goes through the menuList to get all the dishes and present them
 					var dish = menuList[l];
-					var price = model.getPrice(dish.id);
-					stuff += "<div class='col-md-2'><center><img src=images/"+dish.image+' width=150px height=150px"><br/><h4>';
-			  		stuff += dish.name;
+					id = dish.RecipeID;
+					var price = Math.ceil(model.getPriceDish(id));
+					total += price;
+					
+					stuff += "<div class='col-md-2'><center><img src="+dish.ImageURL+' width=150px height=150px"><br/><h4>';
+			  		stuff += dish.Title;
 			  		stuff += "</br>"+price+" SEK</h4>";
 			  		stuff += '</center></div>';
 		  	}

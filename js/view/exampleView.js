@@ -6,6 +6,8 @@ var ExampleView = function (container, model) { //This view is for the first and
     $("#secondHeader").hide();
     $("#presentedMenu").hide();
     $("#finalMenu").hide();
+    $(".Loading").hide();
+    $(".Error").hide();
 	
 	//$("#page1").hide();
 	// Get all the relevant elements of the view (ones that show data
@@ -27,59 +29,40 @@ var ExampleView = function (container, model) { //This view is for the first and
 
 			var things = '';
 			var FullMenu = model.getFullMenu();
-		if('starter' in FullMenu){
-			var startid = FullMenu.starter;
-			var starter = model.getDish(startid);
-			//things += starter.name;
-			things += '<button id="removeStarter" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span></button> '+starter.name.substr(0, 30)+'<br />';
-		}
-		if('main' in FullMenu){
-			var mainid = FullMenu.main;
-			var main = model.getDish(mainid);
-			things += '<button id= "removeMain" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span></button> '+main.name.substr(0, 30)+'<br />';
-		}
-		if('dessert' in FullMenu){
-			var dessertid = FullMenu.dessert;
-			var dessert = model.getDish(dessertid);
-			things += '<button id="removeDessert" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span></button> '+dessert.name.substr(0, 30)+'<br />';
-		}
+				for (var g=0;g<FullMenu.length;g++){
+					var food = FullMenu[g];
+					things += '<button id="';
+					things += food.RecipeID+'" class="delete"><span class="glyphicon glyphicon-remove"></span></button> '+food.Title.substr(0, 20)+'<br />';
+				}
 		return things;
-	}
+		}
 
 		this.dishName.html(this.getName());
 
-	this.removeStarter = container.find("#removeStarter");
-	this.removeMain = container.find("#removeMain");
-	this.removeDessert = container.find("#removeDessert");
+	this.remove = container.find(".delete");
+	var totalPrice = 0;
 		//this.dishPrice.html(model.getPrice(model.getCurrentDish()));
 		this.getMoney = function()
-		{	
-
+		{	//var totalPrice = 0;
 			var things = '';
 			var FullMenu = model.getFullMenu();
-		if('starter' in FullMenu){
-			var startid = FullMenu.starter;
-			var startprice = model.getPrice(startid);
-			//things += starter.name;
-			things += startprice+'</br>';
+
+				for (var g=0;g<FullMenu.length;g++){
+					var food = FullMenu[g];
+					var id = food.RecipeID;
+					var singleCost = Math.ceil(model.getPriceDish(id));
+					things += singleCost+'</br>';
+
+					totalPrice += singleCost;
+				}
+
+			return things;
 		}
-		if('main' in FullMenu){
-			var mainid = FullMenu.main;
-			var mainprice = model.getPrice(mainid);
-			things += mainprice+'</br>';
-		}
-		if('dessert' in FullMenu){
-			var dessertid = FullMenu.dessert;
-			var dessertprice = model.getPrice(dessertid);
-			things += dessertprice+'</br>';
-		}
-		return things;
-	}
 
 		this.dishPrice.html(this.getMoney());
 		//this.dishName.html(model.getDishName(model.getCurrentDish()));
 		this.numberOfGuests.html(model.getNumberOfGuests);
-		this.totalPrice.html(model.getTotalMenuPrice());
+		this.totalPrice.html(totalPrice);
 
 		this.tryShit = function(){ //since the controller doesn't exists yet the first time the view is runned
 			try{

@@ -5,16 +5,34 @@ var DinnerModel = function() {
 	// and selected dinner options for dinner menu
 
 	var guests =1; 
-	var menu = new Object(); //Our menu object where we store what type it has
+	var menu = []; //Our menu object where we store what type it has
 	var observers = []; //The array of observers (views)
 	var currentDish = 1; //The current dish showed
 	var currentType = 'starter'; //The current type of dishes showed
 	this.searched = ""; //The searched word
+	var searchedDishes = [];
+	var singleRecipe = [];
 
+	this.notify = function(){
+		notifyObservers();
+	}
+
+	this.getOneRecipe = function(){
+		return singleRecipe;
+	}
+
+	this.getSearched = function(){
+		return searchedDishes;
+	}
+
+	this.setSearched = function(string){
+		this.searched = string;
+		//notifyObservers();
+	}
 
 	this.setCurrentType = function(type){
 		currentType = type;
-		this.notifyObservers();
+		notifyObservers();
 	}
 
 	this.getCurrentType = function(){
@@ -23,7 +41,7 @@ var DinnerModel = function() {
 
 	this.setCurrentDish = function (id){
 		currentDish = Number(id);
-		this.notifyObservers();
+		notifyObservers();
 	}
 
 	this.getCurrentDish = function (){
@@ -34,7 +52,7 @@ var DinnerModel = function() {
 		observers.push(observer);
 	}
 
-	this.notifyObservers = function(){ //Goes through all views and run the update function
+	var notifyObservers = function(){ //Goes through all views and run the update function
 		for (n=0;n<observers.length;n++){
 			observers[n].updateView();
 		}
@@ -42,7 +60,7 @@ var DinnerModel = function() {
 
 	this.setNumberOfGuests = function(num) {
 		guests = num;
-		this.notifyObservers();
+		notifyObservers();
 	}
 
 	this.getNumberOfGuests = function() {
@@ -76,6 +94,26 @@ var DinnerModel = function() {
 
 	this.getFullMenu = function() {
 		return menu;
+	}
+
+	this.getPriceDish = function(id){
+		var id = Number(id);
+
+		var dishPrice = 0
+		if(menu.length>0){
+		for (var i = 0; i<menu.length; i++){
+			if (menu[i].RecipeID === id){
+				var dish = menu[i]
+				var ingredients = dish.Ingredients
+				for(i=0;i<ingredients.length;i++){
+					var ingredient=ingredients[i];
+					dishPrice+= ingredient.Quantity;
+				}
+
+			}
+		}
+		}
+	return dishPrice*guests;
 	}
 
 	//Returns all ingredients for all the dishes on the menu.
@@ -117,52 +155,110 @@ var DinnerModel = function() {
 	//it is removed from the menu and the new one added.
 	this.addDishToMenu = function(id) {
 		//TODO Lab 2 
-		var dish = this.getDish(id);
-		var Type = dish.type;
-		menu[Type] = id;
+		this.getRecipe(id);
+		var dish = this.getOneRecipe();
+		//var dish = this.getDish(id);
+		var Type = dish.Category;
+		for (s=0;s<menu.length;s++){
+			if (menu[s].Category === Type){
+				menu.splice(s,1);
+
+			}
+		}
+		menu.push(dish);
+		notifyObservers();
 	}
 
 	//Removes dish from menu
 	this.removeDishFromMenu = function(id) {
-	var dish = this.getDish(id);
-	var type = dish.type; 
-	if(menu[type] === id) {
-		delete menu[type];
+	var id = Number(id);
+	this.getRecipe(id);
+	var dish = this.getOneRecipe();
+	for (u=0;u<menu.length;u++){
+		if (menu[u].RecipeID === id){
+			menu.splice(u,1);
 		}
-		this.notifyObservers();
+	}
+	//var type = dish.Category; 
+	//if(menu[type] === id) {
+	//	delete menu[type];
+	//	}
+		notifyObservers();
 	}
 	
 
 	//function that returns all dishes of specific type (i.e. "starter", "main dish" or "dessert")
 	//you can use the filter argument to filter out the dish by name or ingredient (use for search)
 	//if you don't pass any filter all the dishes will be returned
-	this.getAllDishes = function (type,filter) {
-	  return $(dishes).filter(function(index,dish) {
-		var found = true;
-		if(filter){
-			found = false;
-			$.each(dish.ingredients,function(index,ingredient) {
-				if(ingredient.name.indexOf(filter)!=-1) {
-					found = true;
-				}
-			});
-			if(dish.name.indexOf(filter) != -1)
-			{
-				found = true;
-			}
-		}
-	  	return dish.type == type && found;
-	  });	
-	}
+	this.getAllDishes = function (filter) {
+		$(".Loading").show();
+	 	var apiKey = "dvxj6xg695oRBNy8vly5FtK40FEBcnZo";
+	 	//dvxwPg94m65254X2OZb7owuNQsvKiG2f
+        var titleKeyword = filter;
+        //var titleKeyword = this.searched;
+        var url = "http://api.bigoven.com/recipes?pg=1&rpp=12"
+        		if (titleKeyword != ""){
+        			url += "&title_kw="+ titleKeyword
+        		}
+        url += "&api_key="+apiKey;
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            cache: false,
+            url: url,
+            success: function (data) {
+                
+                searchedDishes = data.Results;
+                
+                notifyObservers();
+                $(".Loading").hide();
+            },
+            error: function () {
+            	$(".Loading").hide();
+                $(".Error").show();
+            }
 
-	//function that returns a dish of specific ID
+        });
+        
+	}
 	this.getDish = function (id) {
-	  for(i=0;i<dishes.length;i++){
-	  		var dish = dishes[i];
-			if(dish.id === id) {
-				return dish;
+		recipeId = id;
+		for (z=0;z<searchedDishes.length;z++){
+			if (recipeId === z.RecipeID){
+				return z;
 			}
 		}
+	}
+	//function that returns a dish of specific ID
+	this.getRecipe = function (id) {
+		$(".Loading").show();
+		var apiKey = "dvxj6xg695oRBNy8vly5FtK40FEBcnZo";
+	 	//dvxwPg94m65254X2OZb7owuNQsvKiG2f
+		var recipeID = id;
+		var url = "http://api.bigoven.com/recipe/" + recipeID + "?api_key="+apiKey;
+		$.ajax({
+	         type: "GET",
+	         dataType: 'json',
+	         cache: false,
+	         url: url,
+	         success: function (data) {
+	           // alert('success');
+	           // console.log(data);
+	            singleRecipe = data;
+	            notifyObservers();
+	            $(".Loading").hide();
+	            },
+            error: function () {
+            	$(".Loading").hide();
+                $(".Error").show();
+            }
+	        });
+	  //for(i=0;i<dishes.length;i++){
+	  	//	var dish = dishes[i];
+		//	if(dish.id === id) {
+		//		return dish;
+		//	}
+		//}
 	}
 	this.getSelectedDish = function(type) {
 		var id = menu[type];
